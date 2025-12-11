@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Manage Orders</h1>
+  <div id="admin-orders"></div>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      fetch("/api/admin/orders")
+        .then(r => r.json())
+        .then(data => {
+          const container = document.getElementById("admin-orders");
+          if (!data.length) {
+            container.innerHTML = "<p>No orders yet.</p>";
+            return;
+          }
+          const table = document.createElement("table");
+          table.className = "table";
+          table.innerHTML = `
+            <thead>
+              <tr>
+                <th>Created</th>
+                <th>User</th>
+                <th>Items</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          `;
+          const tbody = table.querySelector("tbody");
+          data.forEach(o => {
+            const tr = document.createElement("tr");
+            const itemsText = o.items.map(i => i.name + " x" + i.qty).join(", ");
+            tr.innerHTML = `
+              <td>${o.createdAt}</td>
+              <td>${o.userId}</td>
+              <td>${itemsText}</td>
+              <td>
+                <select data-id="${o.id}">
+                  <option value="pending"${o.status === "pending" ? " selected" : ""}>pending</option>
+                  <option value="confirmed"${o.status === "confirmed" ? " selected" : ""}>confirmed</option>
+                  <option value="ready"${o.status === "ready" ? " selected" : ""}>ready</option>
+                  <option value="picked-up"${o.status === "picked-up" ? " selected" : ""}>picked-up</option>
+                </select>
+              </td>
+            `;
+            tbody.appendChild(tr);
+          });
+          container.appendChild(table);
+
+          container.addEventListener("change", (e) => {
+            if (e.target.tagName.toLowerCase() === "select") {
+              const orderId = e.target.getAttribute("data-id");
+              const status = e.target.value;
+              fetch("/api/admin/orders/" + orderId, {
+                method: "PATCH",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ status })
+              });
+            }
+          });
+        });
+    });
+  </script>
+{% endblock %}

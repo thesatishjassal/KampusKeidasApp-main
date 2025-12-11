@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% block content %}
+
+  <!-- HERO SECTION -->
+  <section class="hero">
+    <div class="hero-card">
+      <p class="hero-tagline">Welcome to</p>
+      <h1>KampusKeidas</h1>  {# 👈 change name here too #}
+      <p class="hero-text">
+        Fresh lunch every weekday, coffee and snacks all day.
+        Easy ordering and pickup for students and staff.
+      </p>
+      <div class="hero-actions">
+        <a class="btn" href="{{ url_for('menu_page') }}">View Today’s Menu</a>
+        <a class="btn btn-ghost" href="#nearby">Where to find us</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ANNOUNCEMENTS -->
+  <section class="announcements">
+    <h2>Announcements</h2>
+
+    {% if announcements %}
+      <ul class="announcement-list">
+        {% for ann in announcements %}
+          <li>
+            <strong>{{ ann.title }}</strong>
+            <p>{{ ann.content }}</p>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <!-- Default text when DB has no announcements -->
+      <ul class="announcement-list">
+        <li>
+          <strong>Today’s offer</strong>
+          <p>Student discount -10% on all lunch portions with a valid student card.</p>
+        </li>
+        <li>
+          <strong>Friday special</strong>
+          <p>Pizza buffet every Friday from 11:00–14:00.</p>
+        </li>
+      </ul>
+    {% endif %}
+  </section>
+
+  <!-- NEARBY SHOPS / SERVICES -->
+  <section id="nearby" class="nearby">
+    <h2>Nearby shops & services</h2>
+    <p>Our restaurant is located close to daily services:</p>
+    <ul>
+      <li><strong>Prisma Supermarket</strong> – about 200 m walk</li>
+      <li><strong>R-Kioski</strong> – snacks & tickets, about 150 m</li>
+      <li><strong>Pharmacy</strong> – inside the shopping centre, 3 min walk</li>
+    </ul>
+    <p>You can reach us easily on foot from the campus and nearby bus stops.</p>
+  </section>
+
+  <!-- PUBLIC TRANSPORT (open API example) -->
+  <section class="transport">
+  <h2>How to get here</h2>
+
+  <div class="address-block">
+    <p><strong>KampusKeidas</strong></p>
+    <p>Taivaskero 6 Vantaa</p>
+    <p>Inside Campus Building A, 1st floor</p>
+    <p><strong>Opening hours:</strong> Mon–Fri 10:30–15:00</p>
+  </div>
+
+  <div class="map-wrapper" style="margin-top: 1rem;">
+  <iframe 
+    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1980.1703107455842!2d25.11111577650413!3d60.24410123746538!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46920f536484f3b7%3A0x6d61a3d7bc1de1af!2sTaivaskero%206%2C%2001280%20Vantaa!5e0!3m2!1sen!2sfi!4v1765431034441!5m2!1sen!2sfi"
+    height="250" 
+    style="border:0;" 
+    allowfullscreen="" 
+    loading="lazy" 
+    referrerpolicy="no-referrer-when-downgrade">
+  </iframe>
+</div>
+
+
+  <p style="margin-top: 1rem;">Nearest metro connections & nearby destinations:</p>
+  <div id="transport-info"></div>
+</section>
+
+
+{% endblock %}

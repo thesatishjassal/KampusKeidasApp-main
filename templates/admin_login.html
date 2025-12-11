@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Admin Login</h1>
+  <form method="post" class="form-card">
+    <label>Email
+      <input type="email" name="email" required>
+    </label>
+    <label>Password
+      <input type="password" name="password" required>
+    </label>
+    <button type="submit" class="btn">Login as Admin</button>
+  </form>
+  <p>Default admin: admin@example.com / admin123</p>
+{% endblock %}

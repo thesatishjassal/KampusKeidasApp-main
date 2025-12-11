@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Admin Dashboard</h1>
+  <div class="stats">
+    <div class="stat-card">
+      <span class="stat-number">{{ order_count }}</span>
+      <span class="stat-label">Total Orders</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-number">{{ user_count }}</span>
+      <span class="stat-label">Users</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-number">{{ menu_days }}</span>
+      <span class="stat-label">Menu Days</span>
+    </div>
+  </div>
+  <div class="admin-links">
+    <a class="btn" href="{{ url_for('admin_menu') }}">Manage Menu</a>
+    <a class="btn" href="{{ url_for('admin_orders') }}">Manage Orders</a>
+    <a class="btn" href="{{ url_for('admin_announcements') }}">Manage Announcements</a>
+  </div>
+{% endblock %}

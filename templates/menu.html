@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+  <section>
+    <h1>Weekly Lunch Menu</h1>
+    <p>Today is highlighted. Dietary labels: L (low lactose), G (gluten free), V (vegetarian), Ve (vegan).</p>
+    <div id="menu-week" class="menu-week"></div>
+  </section>
+
+  <section class="cart-section">
+    <h2>Your Cart</h2>
+    <div id="cart-items"></div>
+    <div class="cart-summary">
+      <span>Total: €<span id="cart-total">0.00</span></span>
+      <button id="checkout-btn" class="btn">Place Order</button>
+    </div>
+  </section>
+{% endblock %}

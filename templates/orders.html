@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>My Orders</h1>
+  {% if orders %}
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Created</th>
+          <th>Items</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for o in orders %}
+        <tr>
+          <td>{{ o.createdAt }}</td>
+          <td>
+            {% for item in o["items"] %}
+              {{ item.name }} x{{ item.qty }} (€{{ '%.2f'|format(item.price) }})<br>
+            {% endfor %}
+          </td>
+          <td>{{ o.status }}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>No orders yet.</p>
+  {% endif %}
+{% endblock %}

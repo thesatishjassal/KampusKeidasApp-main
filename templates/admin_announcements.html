@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Announcements</h1>
+  <form method="post" class="form-card">
+    <label>Title
+      <input type="text" name="title" required>
+    </label>
+    <label>Content
+      <textarea name="content" required></textarea>
+    </label>
+    <label class="checkbox">
+      <input type="checkbox" name="active" checked> Active
+    </label>
+    <button type="submit" class="btn">Add Announcement</button>
+  </form>
+
+  <h2>Existing</h2>
+  <ul class="announcement-list">
+    {% for ann in announcements %}
+      <li>
+        <strong>{{ ann.title }}</strong>
+        <p>{{ ann.content }}</p>
+        <form method="post" action="{{ url_for('toggle_announcement', ann_id=str(ann._id)) }}">
+          <button type="submit" class="btn btn-small">
+            Set {{ "inactive" if ann.active else "active" }}
+          </button>
+        </form>
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Manage Menu</h1>
+  <p>You can manage menu days using the JSON API <code>/api/admin/menu</code>. This page lists stored days.</p>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Weekday</th>
+        <th>Dishes count</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for day in menus %}
+      <tr>
+        <td>{{ day.date }}</td>
+        <td>{{ day.weekday }}</td>
+        <td>{{ day.dishes|length }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
