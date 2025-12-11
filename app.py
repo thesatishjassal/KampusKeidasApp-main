@@ -3,15 +3,17 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from pymongo import MongoClient
 from bson.objectid import ObjectId
 import datetime
-
+import os
 import config
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = config.SECRET_KEY
 
 client = MongoClient(config.MONGO_URI)
-db = client.get_default_database()
+# use DB_NAME env variable or fallback to "canteen"
+DB_NAME = os.getenv("DB_NAME", "canteen")
 
+db = client[DB_NAME]
 users_col = db["users"]
 menus_col = db["menus"]
 orders_col = db["orders"]
