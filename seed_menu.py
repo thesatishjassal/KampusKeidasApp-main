@@ -3,7 +3,9 @@ import datetime
 import config
 
 client = MongoClient(config.MONGO_URI)
-db = client.get_default_database()
+
+# FIX: manually choose the database
+db = client["mydb"]  # <-- change to your DB name
 menus_col = db["menus"]
 
 def get_week_dates():
